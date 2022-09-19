@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from './Navbar';
 
 class Header extends Component {
 	constructor(props) {
@@ -11,115 +12,9 @@ class Header extends Component {
 			<>
 				<div class="page-wrapper">
 
-					<div class="preloader">
-						<div class="lds-roller">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-					</div>
-
-
-					<header id="header" class="site-header header-style-1">
-						<div class="topbar">
-							<div class="container-full">
-								<div class="row">
-									<div class="col col-xs-12">
-										<div class="inner clearfix">
-											<div class="left-link">
-												<ul>
-													<li><a href="contact.html">Features</a></li>
-													<li><a href="contact.html">Privacy policy</a></li>
-													<li><a href="contact.html">Get in touch</a></li>
-												</ul>
-											</div>
-											<div class="social-link">
-												<ul>
-													<li><a href="#"><i class="ti ti-facebook"></i></a></li>
-													<li><a href="#"><i class="ti ti-twitter-alt"></i></a></li>
-													<li><a href="#"><i class="ti ti-pinterest-alt"></i></a></li>
-													<li><a href="#"><i class="ti ti-vimeo-alt"></i></a></li>
-													<li><a href="#"><i class="ti ti-flickr-alt"></i></a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<br></br>
-						<nav id="site-navigation" class="navigation navbar navbar-default">
-							<div class="container-full">
-								<div class="navbar-header">
-									<button type="button" id="hamburger-menu" class="open-nav-btn open-btn" aria-label="open navigation" aria-controls="link-list" aria-expanded="false">
-										<span class="sr-only">Toggle navigation</span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</button>
-									<a class="navbar-brand" href="/"><img src="assets/images/logo1.png" alt /></a>
-								</div>
-								<div id="slide-nav" class="navbar-collapse collapse navigation-holder slide-content">
-									<button type="button" id="close" class="close-btn close-navbar" aria-label="close navigation"><i class="ti-close"></i></button>
-									<ul id="link-list" class="nav navbar-nav menu nav-menu">
-
-
-										<li class="current-menu-item"><a href="/live">Live</a></li>
-
-										<li class="current-menu-item"><a href="/news">News</a></li>
-
-										<li class="current-menu-item"><a href="/sports">Sports</a></li>
-
-										<li class="current-menu-item"><a href="/athletes">Athletes</a></li>
-
-
-										{/* <li class="menu-item-has-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14">
-											<a href="#">User</a>
-											<ul class="sub-menu">
-												<li><a class="dropdown-item" href="">Login</a></li>
-												<li><a class="dropdown-item" href="">Register</a></li>
-												<li><a class="dropdown-item" href="">Logout</a></li>
-											</ul>
-										</li> */}
-
-										<li class="nav-item dropdown">
-											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img src="assets/images/avatar.png" style={{width:"30px", height:"30px", position:"absolute"}}/>
-											</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-												<li><a class="dropdown-item" href="/login">Login</a></li>
-												<li><a class="dropdown-item" href="/register">Register</a></li>
-												<li><a class="dropdown-item" href="/logout">Logout</a></li>
-											</div>
-										</li>
-									</ul>
-								</div>
-
-								<div class="header-right">
-									<div class="header-search-form-wrapper">
-										<div class="search-area">
-											<form>
-												<div>
-													<input type="text" class="form-control" placeholder="Search" />
-													<button type="submit"><i class="ti ti-search"></i></button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</nav>
-					</header>
+					<Navbar />
 					<br></br>
 					<br></br>
-
 
 					<section>
 						<img src='/assets/images/trending-posts/back.PNG' style={{
@@ -451,13 +346,13 @@ class Header extends Component {
 					</section>
 
 
-					<section class="trending-articles-section section-padding" style={{backgroundColor:"black"}}>
+					<section class="trending-articles-section section-padding" style={{ backgroundColor: "black" }}>
 						<div class="container-1310">
 							<div class="row">
 								<div class="col col-xs-12">
 									<div class="section-title">
 										<span>Watch Live</span>
-										<h2 style={{color:"white"}}>Live Events and Upcoming Events</h2>
+										<h2 style={{ color: "white" }}>Live Events and Upcoming Events</h2>
 
 										<a href="news2" class="theme-btn">
 											view more
@@ -482,11 +377,11 @@ class Header extends Component {
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/one.png" alt />
 												{/* <button>Wrestling</button> */}
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"red", color:"white" }}>Live</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red", color: "white" }}>Live</button>
 											</div>
 											<div class="entry-details">
-											<div class="author" style={{color:"white"}}>Wrestling</div>
-												<h4><a href="news2" style={{color:"white"}}>Wrestling | World Championships | Belgrade</a></h4>
+												<div class="author" style={{ color: "white" }}>Wrestling</div>
+												<h4><a href="news2" style={{ color: "white" }}>Wrestling | World Championships | Belgrade</a></h4>
 												<ul>
 													<li><a href="news2">3 Mins Read</a></li>
 													<li><a href="news2">9 Oct 2022</a></li>
@@ -496,11 +391,11 @@ class Header extends Component {
 										<div class="grid">
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/golf.png" alt />
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"red", color:"white" }}>Live</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red", color: "white" }}>Live</button>
 											</div>
 											<div class="entry-details">
-											<div class="author" style={{color:"white"}}>Golf</div>
-												<h4><a href="news2" style={{color:"white"}}>9 for last 10 holes! Jon Rahm Final Round Highlights | 2022 BMW PGA Championship </a></h4>
+												<div class="author" style={{ color: "white" }}>Golf</div>
+												<h4><a href="news2" style={{ color: "white" }}>9 for last 10 holes! Jon Rahm Final Round Highlights | 2022 BMW PGA Championship </a></h4>
 												<ul>
 													<li><a href="news2">5 Mins Read</a></li>
 													<li><a href="news2">24 Apr 2022</a></li>
@@ -510,11 +405,11 @@ class Header extends Component {
 										<div class="grid">
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/ball.png" alt />
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"white", color:"black" }}>Live on Sep-2</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "white", color: "black" }}>Live on Sep-2</button>
 											</div>
 											<div class="entry-details">
-											<div class="author" style={{color:"white"}}>Volleyball</div>
-												<h4><a href="news2" style={{color:"white"}}>🇵🇱 POL vs. 🇮🇹 ITA - Highlights Final | Men's World Championships 2022 </a></h4>
+												<div class="author" style={{ color: "white" }}>Volleyball</div>
+												<h4><a href="news2" style={{ color: "white" }}>🇵🇱 POL vs. 🇮🇹 ITA - Highlights Final | Men's World Championships 2022 </a></h4>
 												<ul>
 													<li><a href="news2">5 Mins Read</a></li>
 													<li><a href="news2">24 Apr 2022</a></li>
@@ -529,7 +424,7 @@ class Header extends Component {
 
 					<br></br>
 					<br></br>
-<br></br>
+					<br></br>
 
 					{/* <!-- start newsletter-section --> */}
 					<section class="newsletter-section">
@@ -556,7 +451,6 @@ class Header extends Component {
 							</div>
 						</div>
 					</section>
-
 
 					<section class="instagram-section">
 						<div class="container-full">

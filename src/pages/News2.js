@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 class News2 extends Component {
     constructor(props) {
@@ -13,106 +14,11 @@ class News2 extends Component {
 
                 <div class="page-wrapper">
 
-                    <div class="preloader">
-                        <div class="lds-roller">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
+                    <Navbar />
 
-
-                    <header id="header" class="site-header header-style-1">
-                        <div class="topbar">
-                            <div class="container-full">
-                                <div class="row">
-                                    <div class="col col-xs-12">
-                                        <div class="inner clearfix">
-                                            <div class="left-link">
-                                                <ul>
-                                                    <li><a href="contact.html">Features</a></li>
-                                                    <li><a href="contact.html">Privacy policy</a></li>
-                                                    <li><a href="contact.html">Get in touch</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="social-link">
-                                                <ul>
-                                                    <li><a href="#"><i class="ti ti-facebook"></i></a></li>
-                                                    <li><a href="#"><i class="ti ti-twitter-alt"></i></a></li>
-                                                    <li><a href="#"><i class="ti ti-pinterest-alt"></i></a></li>
-                                                    <li><a href="#"><i class="ti ti-vimeo-alt"></i></a></li>
-                                                    <li><a href="#"><i class="ti ti-flickr-alt"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-<br></br>
-                        <nav id="site-navigation" class="navigation navbar navbar-default">
-                            <div class="container-full">
-                                <div class="navbar-header">
-                                    <button type="button" id="hamburger-menu" class="open-nav-btn open-btn" aria-label="open navigation" aria-controls="link-list" aria-expanded="false">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                    <a class="navbar-brand" href="/"><img src="assets/images/logo1.png" alt /></a>
-                                </div>
-                                <div id="slide-nav" class="navbar-collapse collapse navigation-holder slide-content">
-                                    <button type="button" id="close" class="close-btn close-navbar" aria-label="close navigation"><i class="ti-close"></i></button>
-                                    <ul id="link-list" class="nav navbar-nav menu nav-menu">
-
-
-                                        <li class="current-menu-item"><a href="/live">Live</a></li>
-
-                                        <li class="current-menu-item"><a href="/news">News</a></li>
-
-                                        <li class="current-menu-item"><a href="/sports">Sports</a></li>
-
-                                        <li class="current-menu-item"><a href="/athletes">Athletes</a></li>
-
-                                        <li class="nav-item dropdown">
-											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="assets/images/avatar.png" style={{width:"30px", height:"30px", position:"absolute"}}/>
-											</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="/login">Login</a></li>
-												<li><a class="dropdown-item" href="/register">Register</a></li>
-												<li><a class="dropdown-item" href="/logout">Logout</a></li>
-											</div>
-										</li>
-                                    </ul>
-                                </div>
-
-                                <div class="header-right">
-                                    <div class="header-search-form-wrapper">
-                                        <div class="search-area">
-                                            <form>
-                                                <div>
-                                                    <input type="text" class="form-control" placeholder="Search" />
-                                                    <button type="submit"><i class="ti ti-search"></i></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </nav>
-                    </header>
-
-
-<br></br>
-<br></br>
-<br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
 
 
                     {/* <!-- start blog-single-section --> */}
@@ -123,7 +29,7 @@ class News2 extends Component {
                                     <div class="blog-content">
                                         <div class="post format-standard-image">
                                             <div class="entry-media">
-                                                <img src="assets/images/featured-articles/madrid.png" alt style={{ maxWidth:'3000px' }}/>
+                                                <img src="assets/images/featured-articles/madrid.png" alt style={{ maxWidth: '3000px' }} />
                                                 <button>Football</button>
                                             </div>
                                             <div class="entry-details">
@@ -354,10 +260,10 @@ class News2 extends Component {
                                                 <div class="img-holder">
                                                     <img src="assets/images/recent-posts/cr7.png" alt />
                                                 </div>
-                                                
+
                                             </div>
                                             <br></br>
-                                            <a href="news2" class="theme-btn-s3" style={{backgroundColor:"blue", color:"white" }}>See more</a>
+                                            <a href="news2" class="theme-btn-s3" style={{ backgroundColor: "blue", color: "white" }}>See more</a>
                                         </div>
                                         <div class="widget tag-widget">
                                             <h3>Tags</h3>
@@ -376,67 +282,7 @@ class News2 extends Component {
                         </div>
                     </section>
 
-                    {/* <!-- start newsletter-section --> */}
-                    <section class="newsletter-section">
-                        <div class="container-1310">
-                            <div class="row">
-                                <div class="col col-xs-12">
-                                    <div class="newsletter-area">
-                                        <div class="newsletter-inner clearfix">
-                                            <div class="text">
-                                                <h3>Email Newsletter</h3>
-                                                <p>Enter your email and we'll keep you posted with news and updates!</p>
-                                            </div>
-                                            <form>
-                                                <div class="input-1">
-                                                    <input type="email" class="form-control" placeholder="Email Address *" required="" />
-                                                </div>
-                                                <div class="submit clearfix">
-                                                    <button type="submit">Subcribe</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    {/* <!-- start footer-section -->      */}
-                    <footer class="footer-section">
-                        <div class="container-1310">
-                            <div class="row">
-                                <div class="col col-xs-12">
-                                    <div class="footer-content">
-                                        <div class="social">
-                                            <ul>
-                                                <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                                <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                                                <li><a href="#"><i class="ti-linkedin"></i></a></li>
-                                                <li><a href="#"><i class="ti-pinterest"></i></a></li>
-                                                <li><a href="#"><i class="ti-vimeo-alt"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="copyright">
-                                            <img src="assets/images/logo1.png" alt />
-                                            <p>&copy; Olympic2022 , All Rights Reserved</p>
-                                        </div>
-                                        <div class="important-links">
-                                            <ul>
-                                                <li><a href="about.html">About me</a></li>
-                                                <li><a href="contact.html">Contact me</a></li>
-                                                <li><a href="contact.html">Advertising</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
+                    <Footer />
 
                 </div>
 

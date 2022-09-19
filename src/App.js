@@ -8,6 +8,8 @@ import Sports from './pages/Sports';
 import Live from './pages/Live';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Medals from './pages/Medals';
+import Events from './pages/Events';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Route exact path="/live" element={<Live />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
+        <Route exact path="/medals" element={<Medals />} />
+        <Route exact path="/events" element={<Events />} />
         
       </Routes>
     </Router>

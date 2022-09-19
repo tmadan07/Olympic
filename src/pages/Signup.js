@@ -1,9 +1,101 @@
 import React, { Component } from 'react';
+import { api } from '../utils';
 
 class Signup extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+        this.initialState = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            username: '',
+            country: ''
+        }
+        this.state = {
+            users: [],
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            username: '',
+            country: ''
+        }
+    }
 
+    componentDidMount() {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        let responseJson = await api.getAllUsers();
+        this.setState({ users: responseJson })
+    }
+
+    handleChange = input => event => {
+        this.setState({
+            [input]: event.target.value
+        })
+    }
+
+    async createUsers() {
+        const {
+            firstName,
+            lastName,
+            username,
+            email,
+            country,
+            password,
+
+        } = this.state
+
+        let responseJson = await api.createUsers({
+            "firstName": firstName,
+            "lastName": lastName,
+            "username": username,
+            "email": email,
+            "country": country,
+            "password": password
+        });
+
+        this.setState(previousState => ({
+            users: [...previousState.users, responseJson]
+        }));
+    this.setState(this.initialState);
+    }
+
+    renderTablebody() {
+        const { users } = this.state;
+        if (users && users.length > 0) {
+            return (
+                <tbody style={{ color: "black" }}>
+                    {
+                        users.map((datum, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{datum.firstName}</td>
+                                    <td>{datum.lastName}</td>
+                                    <td>{datum.username}</td>
+                                    <td>{datum.email}</td>
+                                    <td>{datum.country}</td>
+                                    <td>{datum.password}</td>
+                                    <td>
+                                    <button style={{ backgroundColor: "green", color:"white" }}>Update</button> 
+                                    <button style={{ backgroundColor: "red",color:"white" }}>Delete</button></td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            )
+        }
+        else {
+            return (
+                <tbody>
+                    <tr><td>No data found</td></tr>
+                </tbody>
+            )
+        }
     }
 
     render() {
@@ -13,8 +105,6 @@ class Signup extends Component {
 
                     <br></br>
                     <br></br>
-                   
-
 
                     <section class="checkout-section section-padding">
                         <div class="container-1310">
@@ -31,34 +121,34 @@ class Signup extends Component {
                                                 <div class="col-1">
                                                     <div class="woocommerce-billing-fields">
 
-                                                        <p class="form-row form-row form-row-first validate-required" id="billing_first_name_field">
-                                                            <label for="billing_first_name" class="">First Name <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="billing_first_name" id="billing_first_name" placeholder="" autocomplete="given-name" value="" />
+                                                        <p class="form-row form-row form-row-first validate-required" id="first_name">
+                                                            <label for="first_name" class="">First Name <abbr class="required" title="required">*</abbr></label>
+                                                            <input type="text" class="input-text " name="first_name" id="first_name" placeholder="" autocomplete="given-name" value={this.state.firstName} onChange={this.handleChange('firstName')} />
                                                         </p>
 
-                                                        <p class="form-row form-row form-row-last validate-required" id="billing_last_name_field">
-                                                            <label for="billing_last_name" class="">Last Name <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="billing_last_name" id="billing_last_name" placeholder="" autocomplete="family-name" value="" />
+                                                        <p class="form-row form-row form-row-last validate-required" id="last_name">
+                                                            <label for="last_name" class="">Last Name <abbr class="required" title="required">*</abbr></label>
+                                                            <input type="text" class="input-text " name="last_name" id="last_name" placeholder="" autocomplete="family-name" value={this.state.lastName} onChange={this.handleChange('lastName')} />
                                                         </p>
                                                         <div class="clear"></div>
 
                                                         <p class="form-row form-row form-row-wide address-field validate-required" id="username">
                                                             <label for="username" class="">Username <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="username" id="username" placeholder="" autocomplete="Username" value="" />
+                                                            <input type="text" class="input-text " name="username" id="username" placeholder="" autocomplete="Username" value={this.state.username} onChange={this.handleChange('username')} />
                                                         </p>
 
                                                         <div class="clear"></div>
 
-                                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_email">
-                                                            <label for="billing_email" class="">Email <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="email" class="input-text " name="billing_email" id="billing_email" placeholder="" autocomplete="email" value="" />
+                                                        <p class="form-row form-row form-row-wide address-field validate-required" id="email">
+                                                            <label for="email" class="">Email <abbr class="required" title="required">*</abbr></label>
+                                                            <input type="email" class="input-text " name="email" id="email" placeholder="" autocomplete="email" value={this.state.email} onChange={this.handleChange('email')} />
                                                         </p>
 
                                                         <div class="clear"></div>
 
-                                                        <p class="form-row form-row form-row-wide address-field update_totals_on_change validate-required" id="billing_country_field">
-                                                            <label for="billing_country" class="">Country <abbr class="required" title="required">*</abbr></label>
-                                                            <select name="billing_country" id="billing_country" autocomplete="country" class="country_to_state country_select ">
+                                                        <p class="form-row form-row form-row-wide address-field update_totals_on_change validate-required" id="country">
+                                                            <label for="country" class="">Country <abbr class="required" title="required">*</abbr></label>
+                                                            <select name="country" id="country" autocomplete="country" class="country_select" value={this.state.country} onChange={this.handleChange('country')}>
                                                                 <option value="">Select a country&hellip;</option>
                                                                 <option value="NP" selected='selected'>Nepal</option>
                                                                 <option value="AF">Afghanistan</option>
@@ -152,8 +242,8 @@ class Signup extends Component {
                                                             </noscript>
                                                             <br></br><br></br>
                                                             <p class="form-row form-row form-row-wide address-field validate-required" id="Password">
-                                                                <label for="billing_email" class="">Password <abbr class="required" title="required">*</abbr></label>
-                                                                <input type="Password" class="input-text " name="Password" id="Password" placeholder="" autocomplete="Password" value="" />
+                                                                <label for="Password" class="">Password <abbr class="required" title="required">*</abbr></label>
+                                                                <input type="Password" class="input-text " name="Password" id="Password" placeholder="" autocomplete="Password" value={this.state.password} onChange={this.handleChange('password')} />
                                                             </p>
                                                         </p>
                                                         <div class="clear"></div>
@@ -165,13 +255,33 @@ class Signup extends Component {
                                         </form>
                                         <label for="rememberme" class="inline">
                                             <input name="rememberme" type="checkbox" id="rememberme" value="forever" />I Agree rules. </label><br></br>
-                                        <input type="submit" class="button" name="signup" value="Signup" />
-
+                                        <input type="submit" class="button" name="signup" value="Signup" onClick={this.createUsers.bind(this)} />
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
                                     </div>
                                 </div>
+
+                                <table class="table" >
+                                    <thead>
+                                        <tr style={{ backgroundColor: "blue",color:"white" }}>
+                                            <th scope="col">FirstName</th>
+                                            <th scope="col">LastName</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">Password</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    {this.renderTablebody()}
+                                </table>
+
                             </div>
                         </div>
                     </section>
+
 
                 </div>
 
