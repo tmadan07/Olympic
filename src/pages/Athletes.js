@@ -9,11 +9,12 @@ class Athletes extends Component {
         super(props)
         this.state = {
             athletes: [],
-            id:0,
-            FullName: '',
-            Country: '',
-            TotalMedals: '',
-            Sport: ''
+            id: 0,
+            image: '',
+            fullname: '',
+            country: '',
+            totalMedals: '',
+            sport: ''
         }
     }
 
@@ -32,20 +33,31 @@ class Athletes extends Component {
         })
     }
 
+    onChangeImage = input => event => {
+        this.setState({
+            [input]: event.target.value
+        })
+        var image = document.getElementById("file-id").files[1].name; 
+        document.getElementById("file-id").files[1].name = image;
+        alert(image);
+       }
+
+
     async createAthletes() {
         const {
-
-            FullName,
-            Country,
-            Sport,
-            TotalMedals
+            image,
+            fullname,
+            country,
+            sport,
+            totalMedals
         } = this.state
 
         let responseJson = await api.createAthletes({
-            "FullName": FullName,
-            "Country": Country,
-            "Sport": Sport,
-            "TotalMedals": TotalMedals
+            "image": image,
+            "fullname": fullname,
+            "country": country,
+            "sport": sport,
+            "totalMedals": totalMedals
         });
 
         this.setState(previousState => ({
@@ -54,6 +66,12 @@ class Athletes extends Component {
         window.close('#modalATHLETES');
 
     }
+
+
+    // uploadImg (fakepath ){
+    //    var spilts = fakepath.split('fakepath\\')
+    //    alert(spilts[1])
+    //    }
 
     renderTablebody() {
         const { athletes } = this.state;
@@ -64,28 +82,24 @@ class Athletes extends Component {
                         athletes.map((datum, index) => {
                             return (
 
-                                // <tr class="cart_item">
-                                //     <td class="product-remove"> <a>{datum.id}</a> </td>
-                                //     <td class="product-thumbnail">
-                                //         <a href="">
-                                //         <img width="57" height="70" src="assets/images/athletes/japan1.png"
-                                //         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="" />
-                                //         </a>
-                                //     </td>
-                                //     <td class="product-name" data-title="Product"> <a>{datum.FullName}</a></td>
-                                //     <td class="product-price" data-title="Price"><a>{datum.Country}</a> </td>
-                                //     <td class="product-quantity" data-title="Quantity">
-                                //         <div class="quantity"><a>{datum.Sport}</a></div>
-                                //     </td>
-                                //     <td class="product-subtotal" data-title="Total"><a>{datum.TotalMedals}</a> </td>
-                                // </tr>
-
-                                <tr key={index}>
-                                    <td>{datum.FullName}</td>
-                                    <td>{datum.Country}</td>
-                                    <td>{datum.Sport}</td>
-                                    <td>{datum.TotalMedals}</td>
+                                <tr class="cart_item">
+                                    <td class="product-remove"> <a>{datum.id}</a></td>
+                                    <td class="product-thumbnail">
+                                        <a href="">
+                                            <img width="57" height="70" src={`data:image/png;base64,${datum.image}`} 
+                                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="..." />  
+                                        </a>
+                                    </td>
+                                    <td class="product-name" data-title="Product"> <a>{datum.fullname}</a></td>
+                                    <td class="product-price" data-title="Price"><a>{datum.country}</a> </td>
+                                    <td class="product-quantity" data-title="Quantity">
+                                        <div class="quantity"><a>{datum.sport}</a></div>
+                                    </td>
+                                    <td class="product-subtotal" data-title="Total"><a>{datum.totalMedals}</a> </td>
                                 </tr>
+
+                                // src="assets/images/athletes/japan1.png"
+
                             )
                         })
                     }
@@ -106,19 +120,18 @@ class Athletes extends Component {
         return (
             <>
 
-
                 <div class="page-wrapper">
 
-                <Navbar />
-					<br></br>
-					<br></br>
+                    <Navbar />
+                    <br></br>
+                    <br></br>
 
                     <div class="modal fade" id="modalATHLETES" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">ADD SPORT</h4>
+                                    <h4 class="modal-title w-100 font-weight-bold">ADD sport</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -128,27 +141,28 @@ class Athletes extends Component {
 
                                     <div class="md-form mb-5">
                                         <label class="form-label" for="uploadphoto">Upload a photo</label>
-                                        <input type="file" class="form-control" id="uploadphoto" />
+                                        <input type="file" id="file-id" name="file_name"  accept="image/png,image/jpeg, image/jpg, image/webp"
+                                        value={this.state.image} onChange={this.onChangeImage('image')} />
                                     </div>
                                     <div class="md-form mb-5">
                                         <i class="fas fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="FullName">FullName</label>
-                                        <input type="text" id="FullName" class="form-control validate" value={this.state.FullName} onChange={this.handleChange('FullName')} />
+                                        <label data-error="wrong" data-success="right" for="fullname">fullname</label>
+                                        <input type="text" id="fullname" class="form-control validate" value={this.state.fullname} onChange={this.handleChange('fullname')} />
                                     </div>
                                     <div class="md-form mb-5">
                                         <i class="fas fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="Country">Country</label>
-                                        <input type="text" id="Country" class="form-control validate" value={this.state.Country} onChange={this.handleChange('Country')} />
+                                        <label data-error="wrong" data-success="right" for="country">country</label>
+                                        <input type="text" id="country" class="form-control validate" value={this.state.country} onChange={this.handleChange('country')} />
                                     </div>
                                     <div class="md-form mb-5">
                                         <i class="fas fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="Sports">Sports</label>
-                                        <input type="text" id="Sports" class="form-control validate" value={this.state.Sport} onChange={this.handleChange('Sport')} />
+                                        <label data-error="wrong" data-success="right" for="sports">sports</label>
+                                        <input type="text" id="sports" class="form-control validate" value={this.state.sport} onChange={this.handleChange('sport')} />
                                     </div>
                                     <div class="md-form mb-5">
                                         <i class="fas fa-user prefix grey-text"></i>
                                         <label data-error="wrong" data-success="right" for="totalMedals">Total Medals</label>
-                                        <input type="text" id="totalMedals" class="form-control validate" value={this.state.TotalMedals} onChange={this.handleChange('TotalMedals')} />
+                                        <input type="text" id="totalMedals" class="form-control validate" value={this.state.totalMedals} onChange={this.handleChange('totalMedals')} />
                                     </div>
 
                                     <br></br>
@@ -188,15 +202,15 @@ class Athletes extends Component {
                                                     <tr>
                                                         <th class="product-remove">&nbsp;</th>
                                                         <th class="product-thumbnail">&nbsp;</th>
-                                                        <th class="product-name">FullName</th>
-                                                        <th class="product-price">Country</th>
-                                                        <th class="product-quantity">Sports</th>
+                                                        <th class="product-name">fullname</th>
+                                                        <th class="product-price">country</th>
+                                                        <th class="product-quantity">sports</th>
                                                         <th class="product-subtotal">Total Medals</th>
                                                     </tr>
                                                 </thead>
 
-                                                {/* {this.renderTablebody()} */}
-                                                <tbody>
+                                                {this.renderTablebody()}
+                                                {/* <tbody>
                                                     
 
                                                     <tr class="cart_item">
@@ -258,12 +272,12 @@ class Athletes extends Component {
                                                         <td class="product-name" data-title="Product"> <a>Tomoa Narasaki</a></td>
                                                         <td class="product-price" data-title="Price"><a>Japan</a> </td>
                                                         <td class="product-quantity" data-title="Quantity">
-                                                            <div class="quantity"><a>Sport Climber</a></div>
+                                                            <div class="quantity"><a>sport Climber</a></div>
                                                         </td>
                                                         <td class="product-subtotal" data-title="Total"><a>3</a> </td>
                                                     </tr>
 
-                                                </tbody>
+                                                </tbody> */}
                                             </table>
                                         </form>
 
@@ -273,7 +287,7 @@ class Athletes extends Component {
                         </div>
                     </section>
 
-                    <Footer/>
+                    <Footer />
 
                 </div>
 

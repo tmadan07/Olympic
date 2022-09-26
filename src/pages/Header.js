@@ -1,10 +1,62 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
+import { api } from '../utils';
 
 class Header extends Component {
 	constructor(props) {
-		super(props);
+		super(props)
+		this.state = {
+			medals: [],
+			rank: '',
+			country: '',
+			gold: '',
+			silver: '',
+			bronze: '',
+			total: ''
+		}
+	}
 
+	componentDidMount() {
+		this.getAllMedals();
+	}
+
+	async getAllMedals() {
+		let responseJson = await api.getAllMedals();
+		this.setState({ medals: responseJson })
+	}
+
+	renderTablebody() {
+		const { medals } = this.state;
+		if (medals && medals.length > 0) {
+			return (
+				<tbody>
+					{
+						medals.map((datum, index) => {
+							return (
+								<tr key={index} onClick={() => { this.handleDoubleClick(datum) }}>
+									<td>{datum.rank}</td>
+									<td>{datum.country}</td>
+									<td>{datum.gold}</td>
+									<td>{datum.silver}</td>
+									<td>{datum.bronze}</td>
+									<td>{datum.total}</td>
+									<td>
+										<button style={{ backgroundColor: "green", color: "white" }}>Update</button>
+										<button style={{ backgroundColor: "red", color: "white" }}>Delete</button></td>
+								</tr>
+							)
+						})
+					}
+				</tbody>
+			)
+		}
+		else {
+			return (
+				<tbody>
+					<tr><td>No data found</td></tr>
+				</tbody>
+			)
+		}
 	}
 
 	render() {
@@ -424,6 +476,38 @@ class Header extends Component {
 
 					<br></br>
 					<br></br>
+					<br></br>
+
+					<section class="checkout-section section-padding">
+						<div class="container-1310">
+							<div class="row">
+								<div class="col col-xs-12">
+									<div class="section-title">
+										<span>Medals Won</span>
+										<h2>Total Medals</h2>
+									</div>
+								</div>
+
+								<div class="row">
+									<table class="table table-striped table-hover" >
+										<thead>
+											<tr style={{ backgroundColor: "rgb(54, 69, 79)", color: "white", height: "30px" }}>
+												<th scope="col">Rank</th>
+												<th scope="col">Country</th>
+												<th scope="col"> <img src="assets/images/medals/gold.png" style={{ width: "30px" }} /></th>
+												<th scope="col"><img src="assets/images/medals/silver.png" style={{ width: "30px" }} /></th>
+												<th scope="col"><img src="assets/images/medals/bronze.png" style={{ width: "30px" }} /></th>
+												<th scope="col">Total Medals</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										{this.renderTablebody()}
+									</table>
+								</div>
+							</div>
+						</div>
+					</section>
+
 					<br></br>
 
 					{/* <!-- start newsletter-section --> */}

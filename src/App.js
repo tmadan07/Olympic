@@ -11,7 +11,6 @@ import Signup from './pages/Signup';
 import Medals from './pages/Medals';
 import Events from './pages/Events';
 
-
 function App() {
 
   return (
@@ -28,8 +27,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/medals" element={<Medals />} />
-        <Route exact path="/events" element={<Events />} />
-        
+        <Route exact path="/events" element={<Events />} />       
       </Routes>
     </Router>
     </div>

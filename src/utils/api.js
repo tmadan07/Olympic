@@ -71,6 +71,31 @@ export const getAllAthletes = async () => {
     return response;
   }
 
+  // ********************* Medals ****************************
+
+  export const getAllMedals = async () => {
+
+    const response = await api.get('/api/v1/medals')
+      .then(res => {
+        return res.data;
+      })
+      .catch(res => {
+        return { "body": [] }
+      })
+    return response;
+  }
+
+  export const createMedals = async (data) => {
+    const response = await api.post('/api/v1/medals', data)
+      .then(res => {
+        return res.data;
+      })
+      .catch(res => {
+        return[]
+      })
+    return response;
+  }
+
   export const createUsers = async (data) => {
     const response = await api.post('/api/v1/register', data)
       .then(res => {
