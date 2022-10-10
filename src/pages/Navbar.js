@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
+import { api } from '../utils';
 
 class Navbar extends Component {
 	constructor(props) {
 		super(props);
-
+		this.state = {
+            users: [],
+            email: '',
+        }
 	}
+
+	componentDidMount() {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        let responseJson = await api.getAllUsers();
+        this.setState({ users: responseJson })
+    }
+
+	handleLogin(data) {
+		this.setState({
+			users: data.email
+		});
+	  }
 
 	render() {
 		return (
 			<>
-
 
 				<div class="preloader">
 					<div class="lds-roller">
@@ -40,7 +58,8 @@ class Navbar extends Component {
 										</div>
 										<div class="social-link" >
 											<ul>
-												<li><a href="/login"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>Login</button></a></li>
+												<li><a href="/login"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>{this.handleLogin}</button></a></li>
+											
 												<li><a href="/register"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>Signup</button></a></li>
 												<li><a href="/logout"><button class="btn btn-danger" style={{ height: "34px", width: "80px" }}>Logout</button></a></li>
 											</ul>

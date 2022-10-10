@@ -1,8 +1,30 @@
 import React, { Component } from 'react';
+import { api } from '../utils';
+import {useNavigate} from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            users: [],
+            email: '',
+            password: ''
+        }
+    }
+
+    
+    handleChange = input => event => {
+        this.setState({
+            [input]: event.target.value
+        })
+    }
+
+    PerformLogin = async (event) => {
+        event.preventDefault();
+        var { email, password } = this.state;
+        let responseJson = await api.login(email, password);
+        console.log(responseJson)
+        this.props.navigate('/');
 
     }
 
@@ -24,16 +46,16 @@ class Login extends Component {
                                 <div class="col col-xs-12">
                                     <div class="woocommerce">
                                         <h2>Login</h2>
-                                        <form method="post" class="login" >
+                                        <form method="post" class="login" onSubmit={ this.PerformLogin} >
                                             <p>Please identify yourself by providing the information requested in the fields below</p>
 
                                             <p class="form-row form-row-first">
                                                 <label for="username">Username or email <span class="required">*</span></label>
-                                                <input type="text" class="input-text" name="username" id="username" />
+                                                <input type="text" class="input-text" name="username" id="username" value={this.state.email} onChange={this.handleChange('email')} />
                                             </p>
                                             <p class="form-row form-row-last">
                                                 <label for="password">Password <span class="required">*</span></label>
-                                                <input class="input-text" type="password" name="password" id="password" />
+                                                <input class="input-text" type="password" name="password" id="password" value={this.state.password} onChange={this.handleChange('password')} />
                                             </p>
                                             <div class="clear"></div>
                                             <p class="lost_password">
@@ -41,17 +63,16 @@ class Login extends Component {
                                             </p>
                                             <label for="rememberme" class="inline">
                                                 <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember me </label>
-                                            <p class="form-row">
-                                                <input type="hidden" id="_wpnonce" name="_wpnonce" value="94dfaf2ac1" />
-                                                <input type="hidden" name="_wp_http_referer" value="/wp/?page_id=6" />
-                                                <input type="submit" class="button" name="login" value="Login" />
-                                                <input type="hidden" name="redirect" value="#" />
 
-                                            </p>
 
                                             <div class="clear"></div>
 
                                         </form>
+
+                                        <p class="form-row">
+                                            <input type="submit" class="button" name="login" value="Login" onClick={this.PerformLogin.bind(this)} />
+
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -66,4 +87,11 @@ class Login extends Component {
 
 }
 
-export default Login;
+function WrapperLogin(props) {
+    let navigate = useNavigate();
+    return <Login {...props} navigate={navigate} />
+}
+
+export default WrapperLogin;
+
+// export default Login;

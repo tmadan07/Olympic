@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useNavigate } from "react-router-dom";
 import { api } from '../utils';
 
 class Signup extends Component {
@@ -64,6 +65,10 @@ class Signup extends Component {
     this.setState(this.initialState);
     }
 
+    nextComponent() {
+        this.props.navigate('/signup/:id');
+      }
+
     renderTablebody() {
         const { users } = this.state;
         if (users && users.length > 0) {
@@ -80,7 +85,7 @@ class Signup extends Component {
                                     <td>{datum.country}</td>
                                     <td>{datum.password}</td>
                                     <td>
-                                    <button style={{ backgroundColor: "green", color:"white" }}>Update</button> 
+                                    <button onClick={()=>this.nextComponent(datum.id)} style={{ backgroundColor: "green", color:"white" }}>Update</button> 
                                     <button style={{ backgroundColor: "red",color:"white" }}>Delete</button></td>
                                 </tr>
                             )
@@ -147,7 +152,7 @@ class Signup extends Component {
                                                         <div class="clear"></div>
 
                                                         <p class="form-row form-row form-row-wide address-field update_totals_on_change validate-required" id="country">
-                                                            <label for="country" class="">Country <abbr class="required" title="required">*</abbr></label>
+                                                           <label for="country" class="">Country <abbr class="required" title="required">*</abbr></label> 
                                                             <select name="country" id="country" autocomplete="country" class="country_select" value={this.state.country} onChange={this.handleChange('country')}>
                                                                 <option value="">Select a country&hellip;</option>
                                                                 <option value="NP" selected='selected'>Nepal</option>
@@ -240,12 +245,13 @@ class Signup extends Component {
                                                             <noscript>
                                                                 <input type="submit" name="woocommerce_checkout_update_totals" value="Update country" />
                                                             </noscript>
+                                                             </p>
                                                             <br></br><br></br>
                                                             <p class="form-row form-row form-row-wide address-field validate-required" id="Password">
                                                                 <label for="Password" class="">Password <abbr class="required" title="required">*</abbr></label>
                                                                 <input type="Password" class="input-text " name="Password" id="Password" placeholder="" autocomplete="Password" value={this.state.password} onChange={this.handleChange('password')} />
                                                             </p>
-                                                        </p>
+                                                       
                                                         <div class="clear"></div>
 
                                                     </div>
@@ -291,4 +297,11 @@ class Signup extends Component {
 
 }
 
-export default Signup;
+function WrapperSignup(props) {
+    let navigate = useNavigate();
+    return <Signup {...props} navigate={navigate} />
+}
+
+export default WrapperSignup;
+
+// export default Signup;

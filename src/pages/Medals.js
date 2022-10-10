@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { api } from '../utils';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Medals extends Component {
     constructor(props) {
@@ -17,7 +19,6 @@ class Medals extends Component {
 
         this.state = {
             medals: [],
-            medal_details:{},
             rank: '',
             country: '',
             gold: '',
@@ -31,9 +32,9 @@ class Medals extends Component {
         this.getAllMedals();
     }
 
-    async getAllMedals(medal_details) {
-        let responseJson = await api.getAllMedals(medal_details);
-        this.setState({ medals: responseJson, medal_details:responseJson })
+    async getAllMedals() {
+        let responseJson = await api.getAllMedals();
+        this.setState({ medals: responseJson })
     }
 
     handleChange = input => event => {
@@ -42,11 +43,11 @@ class Medals extends Component {
         })
     }
 
-    handleDoubleClick = (medal) => {
-        this.setState({
-            medal_details: medal
-        })
-        window.openModal('#medalsDetails')
+    deleteMedals = async (medal_id) => {
+
+        let responseJson = await api.deleteMedals(medal_id)
+
+        console.log(responseJson + "clicked");
     }
 
     async createMedals() {
@@ -61,66 +62,18 @@ class Medals extends Component {
         } = this.state
 
         let responseJson = await api.createMedals({
-            "rank": rank,
+            "rank": parseInt(rank),
             "country": country,
-            "gold": gold,
-            "silver": silver,
-            "bronze": bronze,
-            "total": total
+            "gold": parseInt(gold),
+            "silver": parseInt(silver),
+            "bronze": parseInt(bronze),
+            "total": parseInt(total)
         });
 
         this.setState(previousState => ({
             medals: [...previousState.medals, responseJson]
         }));
         this.setState(this.initialState);
-    }
-
-    renderMedalDetails = () => {
-        const { medal_details } = this.state;
-        if (medal_details) {
-            return (
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Field</th>
-                            <th>Data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>RANK</th>
-                            <td>{medal_details.rank}</td>
-                        </tr>
-                        <tr>
-                            <th>COUNTRY</th>
-                            <td>{medal_details.country}</td>
-                        </tr>
-                        <tr>
-                            <th>GOLD</th>
-                            <td>{medal_details.gold}</td>
-                        </tr>
-                        <tr>
-                            <th>SILVER</th>
-                            <td>{medal_details.silver}</td>
-                        </tr>
-                        <tr>
-                            <th>BRONZE</th>
-                            <td>{medal_details.bronze}</td>
-                        </tr>
-                        <tr>
-                            <th>total MEDALS</th>
-                            <td>{medal_details.total}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            )
-        }
-        else {
-            return (
-                <div>No data found</div>
-            )
-        }
     }
 
 
@@ -132,7 +85,7 @@ class Medals extends Component {
                     {
                         medals.map((datum, index) => {
                             return (
-                                <tr key={index} onClick={() => { this.handleDoubleClick(datum) }}>
+                                <tr key={index}>
                                     <td>{datum.rank}</td>
                                     <td>{datum.country}</td>
                                     <td>{datum.gold}</td>
@@ -140,8 +93,12 @@ class Medals extends Component {
                                     <td>{datum.bronze}</td>
                                     <td>{datum.total}</td>
                                     <td>
-                                        <button style={{ backgroundColor: "green", color: "white" }}>Update</button>
-                                        <button style={{ backgroundColor: "red", color: "white" }}>Delete</button></td>
+                                        {/* <button onClick={()=>this.nextComponent(datum.id)}  style={{ backgroundColor: "green", color: "white" }}>Update</button> */}
+                                        <Link
+                                            class="btn btn-outline-primary mr-2" to={`/medal/${datum.id}`}>
+                                                <button style={{ backgroundColor: "green", color: "white" }}>Update</button> 
+                                        </Link>
+                                        <button style={{ backgroundColor: "red", color: "white" }} onClick={()=>this.deleteMedals(datum.id)}>Delete</button></td>
                                 </tr>
                             )
                         })
@@ -239,7 +196,7 @@ class Medals extends Component {
                         <div class="row">
                             <table class="table table-striped table-hover" >
                                 <thead>
-                                    <tr style={{ backgroundColor: "rgb(54, 69, 79)", color: "white",height:"30px" }}>
+                                    <tr style={{ backgroundColor: "rgb(54, 69, 79)", color: "white", height: "30px" }}>
                                         <th scope="col">Rank</th>
                                         <th scope="col">Country</th>
                                         <th scope="col"> <img src="assets/images/medals/gold.png" style={{ width: "30px" }} /></th>
@@ -256,21 +213,6 @@ class Medals extends Component {
                     </div>
                 </section>
 
-                <div class="modal fade" id="medalsDetails" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {this.renderMedalDetails()}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <Footer />
             </div>
 
@@ -278,5 +220,11 @@ class Medals extends Component {
     }
 }
 
+function WrapperMedals(props) {
+    let navigate = useNavigate();
+    return <Medals {...props} navigate={navigate} />
+}
 
-export default Medals;
+export default WrapperMedals;
+
+// export default Medals;

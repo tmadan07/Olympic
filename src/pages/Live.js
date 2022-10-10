@@ -12,69 +12,28 @@ class Live extends Component {
 			<>
 				<div class="page-wrapper">
 
-				<Navbar />
+					<Navbar />
 					<br></br>
 					<br></br>
 
-					<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">ADD NEWS</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body mx-3">
-                                    <div class="md-form mb-5">
-                                        <i class="fas fa-user prefix grey-text"></i>
-                                        <input type="text" id="form34" class="form-control validate" />
-                                        <label data-error="wrong" data-success="right" for="form34">Your name</label>
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fas fa-envelope prefix grey-text"></i>
-                                        <input type="email" id="form29" class="form-control validate" />
-                                        <label data-error="wrong" data-success="right" for="form29">Your email</label>
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fas fa-tag prefix grey-text"></i>
-                                        <input type="text" id="form32" class="form-control validate" />
-                                        <label data-error="wrong" data-success="right" for="form32">Subject</label>
-                                    </div>
-
-                                    <div class="md-form">
-                                        <i class="fas fa-pencil prefix grey-text"></i>
-                                        <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-                                        <label data-error="wrong" data-success="right" for="form8">Your message</label>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-unique">Submit <i class="fas fa-paper-plane-o ml-1"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <section class="page-title">
+					<section class="page-title">
                         <div class="container-1310">
                             <div class="row">
                                 <div class="col col-xs-12">
                                     <div class="text-left">
-									<a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalContactForm" 
-                                            style={{  backgroundColor:"red", color:"white" }}>GO LIVE</a>
-                                      
+                                        <a href={"/live.html"} class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalATHLETES"
+                                            style={{ backgroundColor: "red", color: "white" }}>GO LIVE</a>
                                     </div>
-									<h2>Watch Live</h2>
+                                    <h2>LIVE GAMES</h2>
                                 </div>
                             </div>
                         </div>
                     </section>
 
+					
 
+					<br></br>
+					<br></br>
 
 					<section class="trending-articles-section ">
 						<div class="container-1310">
@@ -86,10 +45,10 @@ class Live extends Component {
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/one.png" alt />
 												{/* <button>Wrestling</button> */}
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"red" }}>Live</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red" }}>Live</button>
 											</div>
 											<div class="entry-details">
-											<div class="author">Wrestling</div>
+												<div class="author">Wrestling</div>
 												<h4><a href="news2">Wrestling | World Championships | Belgrade</a></h4>
 												<ul>
 													<li><a href="news2">3 Mins Read</a></li>
@@ -100,10 +59,10 @@ class Live extends Component {
 										<div class="grid">
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/golf.png" alt />
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"red" }}>Live</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red" }}>Live</button>
 											</div>
 											<div class="entry-details">
-											<div class="author" >Golf</div>
+												<div class="author" >Golf</div>
 												<h4><a href="news2">9 for last 10 holes! Jon Rahm Final Round Highlights | 2022 BMW PGA Championship </a></h4>
 												<ul>
 													<li><a href="news2">5 Mins Read</a></li>
@@ -114,10 +73,10 @@ class Live extends Component {
 										<div class="grid">
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/ball.png" alt />
-												<button href="news2" class="theme-btn-s3" style={{backgroundColor:"red" }}>Live</button>
+												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red" }}>Live</button>
 											</div>
 											<div class="entry-details">
-											<div class="author">Volleyball</div>
+												<div class="author">Volleyball</div>
 												<h4><a href="news2">🇵🇱 POL vs. 🇮🇹 ITA - Highlights Final | Men's World Championships 2022 </a></h4>
 												<ul>
 													<li><a href="news2">5 Mins Read</a></li>
@@ -133,7 +92,7 @@ class Live extends Component {
 
 					<br></br>
 					<br></br>
-<br></br>
+					<br></br>
 
 					{/* <!-- start newsletter-section --> */}
 					<section class="newsletter-section">

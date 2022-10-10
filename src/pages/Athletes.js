@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { api } from '../utils';
 import Navbar from './Navbar';
 import Footer from './Footer';
-
+import { useNavigate } from 'react-router-dom';
 
 class Athletes extends Component {
     constructor(props) {
@@ -42,7 +42,6 @@ class Athletes extends Component {
         alert(image);
        }
 
-
     async createAthletes() {
         const {
             image,
@@ -57,7 +56,7 @@ class Athletes extends Component {
             "fullname": fullname,
             "country": country,
             "sport": sport,
-            "totalMedals": totalMedals
+            "totalMedals": parseInt(totalMedals)
         });
 
         this.setState(previousState => ({
@@ -72,6 +71,10 @@ class Athletes extends Component {
     //    var spilts = fakepath.split('fakepath\\')
     //    alert(spilts[1])
     //    }
+
+    nextComponent() {
+        this.props.navigate('/athlete/:id');
+      }
 
     renderTablebody() {
         const { athletes } = this.state;
@@ -96,6 +99,9 @@ class Athletes extends Component {
                                         <div class="quantity"><a>{datum.sport}</a></div>
                                     </td>
                                     <td class="product-subtotal" data-title="Total"><a>{datum.totalMedals}</a> </td>
+                                    <td>
+                                    <button onClick={()=>this.nextComponent(datum.id)} style={{ backgroundColor: "green", color:"white" }}>Update</button> 
+                                    <button style={{ backgroundColor: "red",color:"white" }}>Delete</button></td>
                                 </tr>
 
                                 // src="assets/images/athletes/japan1.png"
@@ -206,6 +212,7 @@ class Athletes extends Component {
                                                         <th class="product-price">country</th>
                                                         <th class="product-quantity">sports</th>
                                                         <th class="product-subtotal">Total Medals</th>
+                                                        <th class="product-quantity">Actions</th>
                                                     </tr>
                                                 </thead>
 
@@ -297,4 +304,11 @@ class Athletes extends Component {
     }
 }
 
-export default Athletes;
+function WrapperAthletes(props) {
+    let navigate = useNavigate();
+    return <Athletes {...props} navigate={navigate} />
+}
+
+export default WrapperAthletes;
+
+// export default Athletes;
