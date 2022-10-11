@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-
-
+import { api } from '../utils';
 class News extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+			showAdmin: undefined,
+		}
+    }
 
+    componentDidMount() {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        let responseJson = await api.getAllUsers();
+        this.setState({ users: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
     }
 
     render() {
+        const {showAdmin} = this.state;
         return (
             <>
 
@@ -64,8 +79,9 @@ class News extends Component {
                                 <div class="col col-xs-12">
                                     <div class="inner">
                                         <div class="text-left" >
+                                            {showAdmin&&(
                                             <a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalPhoto"
-                                                style={{ backgroundColor: "red", color: "white" }}>ADD NEWS</a>
+                                                style={{ backgroundColor: "red", color: "white" }}>ADD NEWS</a>)}
                                         </div>
                                         <h2>Latest News</h2>
                                     </div>

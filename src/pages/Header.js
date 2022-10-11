@@ -7,12 +7,6 @@ class Header extends Component {
 		super(props)
 		this.state = {
 			medals: [],
-			rank: '',
-			country: '',
-			gold: '',
-			silver: '',
-			bronze: '',
-			total: '',
 			showAdmin: undefined
 		}
 	}
@@ -38,17 +32,14 @@ class Header extends Component {
 					{
 						medals.map((datum, index) => {
 							return (
-								<tr key={index} onClick={() => { this.handleDoubleClick(datum) }}>
+								<tr key={index} >
 									<td>{datum.rank}</td>
 									<td>{datum.country}</td>
 									<td>{datum.gold}</td>
 									<td>{datum.silver}</td>
 									<td>{datum.bronze}</td>
 									<td>{datum.total}</td>
-									{showAdmin&& (
-									<td>
-										<button style={{ backgroundColor: "green", color: "white" }}>Update</button>
-										<button style={{ backgroundColor: "red", color: "white" }}>Delete</button></td> )}
+								
 								</tr>
 							)
 						})
@@ -256,16 +247,9 @@ class Header extends Component {
 									<div class="left-post">
 										<div class="post">
 											<div class="entry-media">
-												<img src="assets/images/recent-videos/bicycle.png" alt />
-												<button>Liftstyle</button>
-												<a href="https://www.youtube.com/watch?v=mxQOOMX4NQM" class="video-btn video-btn-s1" data-type="iframe" tabindex="0">
-													<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
-														<g transform="translate(-619 -1700)">
-															<circle data-name="Ellipse 11" cx="35" cy="35" r="35" transform="translate(619 1700)" fill="#fff" />
-															<path data-name="Polygon 3" d="M9,0l9,15H0Z" transform="translate(664.5 1725.5) rotate(90)" />
-														</g>
-													</svg>
-												</a>
+												<div style={{overflow:"hidden"}}>
+											<iframe width="700" height="315" src="https://www.youtube.com/embed/mxQOOMX4NQM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+											</div>
 											</div>
 											<div class="entry-details">
 												<h4><a href="blog-single.html">Cristiano Ronaldo’s bicycle kick against Juventus nominated for UEFA Goal of the Year. Is Cristiano Ronaldo all time's GOAT?</a></h4>
@@ -436,14 +420,14 @@ class Header extends Component {
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/one.png" alt />
 												{/* <button>Wrestling</button> */}
-												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red", color: "white" }}>Live</button>
+												<button href="live.html" class="theme-btn-s3" style={{ backgroundColor: "red", color: "white" }}>Live</button>
 											</div>
 											<div class="entry-details">
 												<div class="author" style={{ color: "white" }}>Wrestling</div>
-												<h4><a href="news2" style={{ color: "white" }}>Wrestling | World Championships | Belgrade</a></h4>
+												<h4><a href="live.html" style={{ color: "white" }}>Wrestling | World Championships | Belgrade</a></h4>
 												<ul>
-													<li><a href="news2">3 Mins Read</a></li>
-													<li><a href="news2">9 Oct 2022</a></li>
+													<li><a href="live.html">3 Mins Read</a></li>
+													<li><a href="live.html">9 Oct 2022</a></li>
 												</ul>
 											</div>
 										</div>
@@ -505,8 +489,6 @@ class Header extends Component {
 												<th scope="col"><img src="assets/images/medals/silver.png" style={{ width: "30px" }} /></th>
 												<th scope="col"><img src="assets/images/medals/bronze.png" style={{ width: "30px" }} /></th>
 												<th scope="col">Total Medals</th>
-												{showAdmin&&(
-												<th scope="col">Actions</th> )}
 											</tr>
 										</thead>
 										{this.renderTablebody()}

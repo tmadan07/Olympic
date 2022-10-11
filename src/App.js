@@ -15,6 +15,7 @@ import AthletesUpdate from './Update/AthletesUpdate';
 import MedalsUpdate from './Update/MedalsUpdate';
 import GoLive from './pages/GoLive';
 import GuestLive from './pages/GuestLive';
+import WatchLive from './pages/WatchLive';
 
 function App() {
 
@@ -39,7 +40,8 @@ function App() {
         <Route exact path="/user/:id" element={<SignupUpdate />} /> 
         <Route exact path="/athlete/:id" element={<AthletesUpdate />}/>  
         <Route exact path="/medal/:id" element={<MedalsUpdate />} />
-        <Route exact path="/live.html" element={<GoLive />} />
+        <Route exact path="/golive" element={<GoLive />} />
+        <Route exact path="/live.html" element={<WatchLive />} />
         <Route exact path="/nolive" element={<GuestLive />} />
       </Routes>
     </Router>

@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-
+import { api } from '../utils';
 class Events extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+			showAdmin: undefined,
+		}
+    }
 
+    componentDidMount() {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        let responseJson = await api.getAllUsers();
+        this.setState({ users: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
     }
 
     render() {
+        const {showAdmin} = this.state;
         return (
             <>
                 <div class="page-wrapper">
@@ -65,8 +81,9 @@ class Events extends Component {
                         <div class="row">
                             <div class="col col-xs-12">
                                 <div class="text-left">
+                                {showAdmin&&(
                                     <a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalSchedule"
-                                        style={{ backgroundColor: "red", color: "white" }}>ADD SCHEDULE</a>
+                                        style={{ backgroundColor: "red", color: "white" }}>ADD SCHEDULE</a> )}
                                 </div>
                                 <h2>Events</h2>
                             </div>
@@ -92,9 +109,9 @@ class Events extends Component {
                                             </div>
                                             <div class="entry-details">
                                                 <div class="author">The City Forex Stadium</div>
-                                                <h4><a href="news2">Cricket</a></h4>
+                                                <h4><a href="news2">Judo | Wrestling | Karate</a></h4>
                                                 <ul>
-                                                    <li><a href="news2" style={{color:"blue"}}>Live on 8 Dec 2021</a></li>
+                                                    <li><a href="news2" style={{color:"blue"}}>Live on 8 Dec 2022</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -104,9 +121,9 @@ class Events extends Component {
                                             </div>
                                             <div class="entry-details">
                                                 <div class="author">Beijing National Stadium</div>
-                                                <h4><a href="news2">Judo | Wrestling | Karate</a></h4>
+                                                <h4><a href="news2"></a>Cricket | India vs Nepal</h4>
                                                 <ul>
-                                                    <li><a href="news2" style={{color:"blue"}}>Live on 10 Dec 2021</a></li>
+                                                    <li><a href="news2" style={{color:"blue"}}>Live on 10 Dec 2022</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -116,9 +133,22 @@ class Events extends Component {
                                             </div>
                                             <div class="entry-details">
                                                 <div class="author">Shanxi Sports Centre Stadium</div>
-                                                <h4><a href="news2">Athletics - Opening and Closing ceremony</a></h4>
+                                                <h4><a href="news2">Volleyball - Brazil vs Italy </a></h4>
                                                 <ul>
-                                                    <li><a href="news2" style={{color:"blue"}}>Live on 15 Dec 2021</a></li>
+                                                    <li><a href="news2" style={{color:"blue"}}>Live on 15 Dec 2022</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid">
+                                            <div class="entry-media">
+                                                <img src="assets/images/trending-posts/ball.png" alt />
+                                            </div>
+                                            <div class="entry-details">
+                                                <div class="author">Rangashala Stadium</div>
+                                                <h4><a href="news2">Athletes - Opening and Closing ceremony  </a></h4>
+                                                <ul>
+                                                    <li><a href="news2" style={{color:"blue"}}>Live on 8 & 27 Dec 2022</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -127,6 +157,8 @@ class Events extends Component {
                             </div>
                         </div>
                     </section>
+
+                    {/* */}
 
                     <br></br>
 

@@ -22,6 +22,7 @@ class Signup extends Component {
             password: '',
             username: '',
             country: '',
+            roles:'',
             showAdmin: undefined
         }
     }
@@ -62,19 +63,24 @@ class Signup extends Component {
             "username": username,
             "email": email,
             "country": country,
-            "password": password
+            "password": password,
         });
 
         this.setState(previousState => ({
             users: [...previousState.users, responseJson]
         }));
+    var roles = ["ROLE_USER"];
+    if(responseJson.email === email){
+        localStorage.setItem(roles);
+    }
     this.setState(this.initialState);
     }
 
-    deleteUser = async (user_id) => {
+    deleteUser = async (user_id, event) => {
+       
 
         let responseJson = await api.deleteUser(user_id)
-
+        event.preventDefault();
         console.log(responseJson + "clicked");
     }
 

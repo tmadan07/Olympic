@@ -5,7 +5,6 @@ import Navbar from './Navbar';
 class Live extends Component {
 	constructor(props) {
 		super(props);
-
 	}
 
 	render() {
@@ -23,7 +22,7 @@ class Live extends Component {
                                 <div class="col col-xs-12">
                                     <div class="text-left">
 									<Link
-                                            class="btn btn-outline-primary mr-2" to={"/live.html"}>
+                                            class="btn btn-outline-primary mr-2" to={"/golive"}>
                                                 <button style={{ backgroundColor: "red", color: "white" }}>GO LIVE</button> 
                                         </Link>
                                     </div>
@@ -48,14 +47,14 @@ class Live extends Component {
 											<div class="entry-media">
 												<img src="assets/images/trending-posts/one.png" alt />
 												{/* <button>Wrestling</button> */}
-												<button href="news2" class="theme-btn-s3" style={{ backgroundColor: "red" }}>Live</button>
+												<button href="/live.html" class="theme-btn-s3" style={{ backgroundColor: "red" }}>Live</button>
 											</div>
 											<div class="entry-details">
 												<div class="author">Wrestling</div>
-												<h4><a href="news2">Wrestling | World Championships | Belgrade</a></h4>
+												<h4><a href="/live.html">Wrestling | World Championships | Belgrade</a></h4>
 												<ul>
-													<li><a href="news2">3 Mins Read</a></li>
-													<li><a href="news2">9 Oct 2022</a></li>
+													<li><a href="/live.html">3 Mins Read</a></li>
+													<li><a href="/live.html">9 Oct 2022</a></li>
 												</ul>
 											</div>
 										</div>
