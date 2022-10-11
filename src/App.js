@@ -14,10 +14,14 @@ import SignupUpdate from './Update/SignupUpdate';
 import AthletesUpdate from './Update/AthletesUpdate';
 import MedalsUpdate from './Update/MedalsUpdate';
 import GoLive from './pages/GoLive';
+import GuestLive from './pages/GuestLive';
 
 function App() {
 
   return (
+
+
+
 <div>
  
     <Router>
@@ -32,10 +36,11 @@ function App() {
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/medals" element={<Medals />} />
         <Route exact path="/events" element={<Events />} />     
-        <Route exact path="/signup/:id" element={<SignupUpdate />} /> 
+        <Route exact path="/user/:id" element={<SignupUpdate />} /> 
         <Route exact path="/athlete/:id" element={<AthletesUpdate />}/>  
         <Route exact path="/medal/:id" element={<MedalsUpdate />} />
         <Route exact path="/live.html" element={<GoLive />} />
+        <Route exact path="/nolive" element={<GuestLive />} />
       </Routes>
     </Router>
     </div>

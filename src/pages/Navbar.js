@@ -5,27 +5,47 @@ class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            users: [],
-            email: '',
-        }
+			users: [],
+			email: '',
+			showLogged: false,
+			showLogin: true,
+			showAdmin: undefined,
+			currentUser: undefined,
+		}
 	}
 
 	componentDidMount() {
-        this.getAllUsers();
-    }
+		this.handleLogin();
+	}
 
-    async getAllUsers() {
-        let responseJson = await api.getAllUsers();
-        this.setState({ users: responseJson })
-    }
+	// async getCurrentUser() {
+	// 	return JSON.parse(localStorage.getItem('user'));;
+	//   }
 
-	handleLogin(data) {
-		this.setState({
-			users: data.email
-		});
-	  }
+	async handleLogin() {
+		// var { username } = this.state;
+		let responseJson = await api.getAllUsers();
+		if (responseJson = window.localStorage.getItem("isLoggedIn")) {
+			this.setState({ showLogged: true, users: responseJson, showLogin: false,
+				 })
+		}
+		 if (responseJson = window.localStorage.getItem("roles").match("ROLE_USER")) {
+					this.setState({ currentUser: "ROLE_USER"
+				 })
+		}	
+		if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+}	
+		console.log(responseJson);
+	}
+
+	logOut() {
+		localStorage.clear();
+	}
 
 	render() {
+		const { showLogged, showLogin,showAdmin ,currentUser } = this.state;
 		return (
 			<>
 
@@ -54,14 +74,30 @@ class Navbar extends Component {
 												<li><a href="contact.html">Features</a></li>
 												<li><a href="contact.html">Privacy policy</a></li>
 												<li><a href="contact.html">Get in touch</a></li>
+												{showAdmin && (
+													<li><a href="/register" style={{ textDecoration:"underline", textDecorationColor:"red" }}>User Details</a></li>
+												)}
 											</ul>
 										</div>
 										<div class="social-link" >
 											<ul>
-												<li><a href="/login"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>{this.handleLogin}</button></a></li>
-											
-												<li><a href="/register"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>Signup</button></a></li>
-												<li><a href="/logout"><button class="btn btn-danger" style={{ height: "34px", width: "80px" }}>Logout</button></a></li>
+
+											   
+
+												{currentUser && (
+													<li><a><button class="btn btn-success" style={{ height: "34px", width: "80px" }}>user</button></a></li>)}
+												{showAdmin && (
+													<li><a><button class="btn btn-success" style={{ height: "34px", width: "80px" }}>admin</button></a></li>)}
+												{showLogin && (
+													<li><a href="/login"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>Login</button></a></li>)}
+												{showLogin && (
+													<li><a href="/register"><button class="btn btn-info" style={{ height: "34px", width: "80px" }}>Signup</button></a></li>
+												)}
+
+												{showLogged && (
+													<li><a href="/" onClick={this.logOut}><button class="btn btn-danger" style={{ height: "34px", width: "80px" }}>Logout</button></a></li>
+												)}
+
 											</ul>
 										</div>
 									</div>
@@ -86,8 +122,10 @@ class Navbar extends Component {
 								<button type="button" id="close" class="close-btn close-navbar" aria-label="close navigation"><i class="ti-close"></i></button>
 								<ul id="link-list" class="nav navbar-nav menu nav-menu">
 
-
-									<li class="current-menu-item"><a href="/live">Live</a></li>
+								{showLogged && (
+									<li class="current-menu-item"><a href="/live">Live</a></li> )}
+                                 {showLogin && (
+									<li class="current-menu-item"><a href="/nolive">Live</a></li> )}
 
 									<li class="current-menu-item"><a href="/news">News</a></li>
 
@@ -98,16 +136,6 @@ class Navbar extends Component {
 									<li class="current-menu-item"><a href="/events">Events</a></li>
 
 									<li class="current-menu-item"><a href="/medals">Achievements</a></li>
-
-									{/* <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Achievements
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a class="dropdown-item" href="/medals">Total Medals</a></li>
-                                                <li><a class="dropdown-item" href="/records">Records</a></li>
-                                            </div>
-                                        </li> */}
 
 								</ul>
 							</div>

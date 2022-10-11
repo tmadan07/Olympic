@@ -12,7 +12,8 @@ class Header extends Component {
 			gold: '',
 			silver: '',
 			bronze: '',
-			total: ''
+			total: '',
+			showAdmin: undefined
 		}
 	}
 
@@ -23,10 +24,14 @@ class Header extends Component {
 	async getAllMedals() {
 		let responseJson = await api.getAllMedals();
 		this.setState({ medals: responseJson })
+		if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
 	}
 
 	renderTablebody() {
-		const { medals } = this.state;
+		const { medals, showAdmin } = this.state;
 		if (medals && medals.length > 0) {
 			return (
 				<tbody>
@@ -40,9 +45,10 @@ class Header extends Component {
 									<td>{datum.silver}</td>
 									<td>{datum.bronze}</td>
 									<td>{datum.total}</td>
+									{showAdmin&& (
 									<td>
 										<button style={{ backgroundColor: "green", color: "white" }}>Update</button>
-										<button style={{ backgroundColor: "red", color: "white" }}>Delete</button></td>
+										<button style={{ backgroundColor: "red", color: "white" }}>Delete</button></td> )}
 								</tr>
 							)
 						})
@@ -60,6 +66,7 @@ class Header extends Component {
 	}
 
 	render() {
+		const{showAdmin} = this.state;
 		return (
 			<>
 				<div class="page-wrapper">
@@ -498,7 +505,8 @@ class Header extends Component {
 												<th scope="col"><img src="assets/images/medals/silver.png" style={{ width: "30px" }} /></th>
 												<th scope="col"><img src="assets/images/medals/bronze.png" style={{ width: "30px" }} /></th>
 												<th scope="col">Total Medals</th>
-												<th scope="col">Actions</th>
+												{showAdmin&&(
+												<th scope="col">Actions</th> )}
 											</tr>
 										</thead>
 										{this.renderTablebody()}

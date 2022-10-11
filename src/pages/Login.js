@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { api } from '../utils';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
@@ -8,11 +8,14 @@ class Login extends Component {
         this.state = {
             users: [],
             email: '',
-            password: ''
+            password: '',
+            name: '',
+            roles: []
         }
+        // this.handleLogin = this.handleLogin.bind(this);
     }
 
-    
+
     handleChange = input => event => {
         this.setState({
             [input]: event.target.value
@@ -21,11 +24,17 @@ class Login extends Component {
 
     PerformLogin = async (event) => {
         event.preventDefault();
-        var { email, password } = this.state;
+        var { email, password, name, roles } = this.state;
         let responseJson = await api.login(email, password);
+        window.localStorage.setItem("isLoggedIn", true);
+
+        //converted array of objects into string
+        const reducedArray = responseJson.roles.reduce((curr) => `${curr.id},${curr.name}`)
+        console.log(reducedArray)
+        localStorage.setItem("roles", String(reducedArray.name));
+
         console.log(responseJson)
         this.props.navigate('/');
-
     }
 
     render() {
@@ -43,10 +52,11 @@ class Login extends Component {
                     <section class="checkout-section section-padding">
                         <div class="container-1310">
                             <div class="row">
+                            
                                 <div class="col col-xs-12">
                                     <div class="woocommerce">
                                         <h2>Login</h2>
-                                        <form method="post" class="login" onSubmit={ this.PerformLogin} >
+                                        <form method="post" class="login" onSubmit={this.PerformLogin} >
                                             <p>Please identify yourself by providing the information requested in the fields below</p>
 
                                             <p class="form-row form-row-first">
@@ -71,7 +81,11 @@ class Login extends Component {
 
                                         <p class="form-row">
                                             <input type="submit" class="button" name="login" value="Login" onClick={this.PerformLogin.bind(this)} />
-
+                                            <Link
+                                            class="btn btn-outline-primary mr-2" to={"/"}>
+                                                <button style={{ backgroundColor: "green", color: "white" }}>Back</button> 
+                                        </Link>
+                                            {/* <button onClick={this.goBack}>Back</button> */}
                                         </p>
                                     </div>
                                 </div>

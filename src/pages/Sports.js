@@ -15,7 +15,8 @@ class Sports extends Component {
         this.state = {
             sports: [],
             word: '',
-            game: ''
+            game: '',
+            showAdmin: undefined
         }
     }
 
@@ -32,6 +33,10 @@ class Sports extends Component {
     async getAllSports() {
         let responseJson = await api.getAllSports();
         this.setState({ sports: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
     }
 
     handleChange = input => event => {
@@ -58,7 +63,7 @@ class Sports extends Component {
     }
 
     renderTablebody() {
-        const { sports } = this.state;
+        const { sports, showAdmin } = this.state;
         if (sports && sports.length > 0) {
             return (
 
@@ -92,6 +97,7 @@ class Sports extends Component {
 
 
     render() {
+        const {showAdmin} = this.state;
         return (
             <>
 
@@ -137,8 +143,10 @@ class Sports extends Component {
                             <div class="row">
                                 <div class="col col-xs-12">
                                     <div class="text-left">
+                                        {showAdmin && (
                                         <a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalNEWS"
                                             style={{ backgroundColor: "red", color: "white" }}>ADD NEW SPORT</a>
+                                            )}
                                     </div>
                                     <h2>Sports</h2>
                                 </div>
@@ -192,15 +200,6 @@ class Sports extends Component {
                                             <p>Cycling Mountain Bike</p>
                                             <p>Cycling Road</p>
                                             <p>Cycling Track</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col col-lg-3">
-                                    <div class="blog-sidebar">
-                                        <div class="widget about-widget">
-                                            <h2 style={{ color: "red" }}>D</h2>
-                                            <p>Diving</p>
                                         </div>
                                     </div>
                                 </div>

@@ -1,93 +1,161 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-class SignupUpdate extends Component {
-    constructor(props) {
-        super(props);
+function SignUpdate() {
 
+    const { id } = useParams();
+    const [register, setRegister] = useState({
+        firstName: '',
+        country: '',
+        lastName: '',
+        username: '',
+        email: '',
+        password: ''
+    });
+
+    const initialState = {
+        firstName: '',
+        country: '',
+        lastName: '',
+        username: '',
+        email: '',
+        password: ''
     }
 
-    render() {
+
+    const onInputChange = e => {
+        setRegister({ ...register, [e.target.name]: e.target.value });
+    };
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    const data = {
+        firstName: register.firstName,
+        lastName: register.lastName,
+        username: register.username,
+        email: register.email,
+        country: register.country,
+        password: register.password,
+    };
+    
+    const navigate = useNavigate();
+
+    const Update = async(e) => {
+            e.preventDefault();
+             axios.put(`http://localhost:8080/api/v1/register/${id}`, data);
+             setRegister(initialState);
+        };
+
+        const loadUser = async () => {
+            const result = await axios.get(`http://localhost:8080/api/v1/register/${id}`);
+            setRegister(result.data);
+        };
+
         return (
-            <>
-                {/* <div class="page-wrapper">
-
+            <div className="container">
+                <br></br>
+                <br></br>
+                <br></br>
+                <div className="w-50 mx-auto shadow p-20">
+                    <h2 className="text-center mb-4">Edit Users</h2>
                     <br></br>
                     <br></br>
+                    <br></br>
 
-                    <section class="checkout-section section-padding">
-                        <div class="container-1310">
-                            <div class="row">
-                                <div class="col col-xs-12">
-                                    <div class="woocommerce">
-                                        <h2>Sign Up</h2>
-                                        <br></br>
-                                        <br></br>
+                    <form onSubmit={Update}>
 
-                                        <form name="checkout" method="post" class="checkout woocommerce-checkout" action="#" enctype="multipart/form-data">
-
-                                            <div class="col2-set" id="customer_details">
-                                                <div class="col-1">
-                                                    <div class="woocommerce-billing-fields">
-
-                                                        <p class="form-row form-row form-row-first validate-required" id="first_name">
-                                                            <label for="first_name" class="">First Name <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="first_name" id="first_name" placeholder="" autocomplete="given-name" value={this.state.firstName} onChange={this.handleChange('firstName')} />
-                                                        </p>
-
-                                                        <p class="form-row form-row form-row-last validate-required" id="last_name">
-                                                            <label for="last_name" class="">Last Name <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="last_name" id="last_name" placeholder="" autocomplete="family-name" value={this.state.lastName} onChange={this.handleChange('lastName')} />
-                                                        </p>
-                                                        <div class="clear"></div>
-
-                                                        <p class="form-row form-row form-row-wide address-field validate-required" id="username">
-                                                            <label for="username" class="">Username <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="text" class="input-text " name="username" id="username" placeholder="" autocomplete="Username" value={this.state.username} onChange={this.handleChange('username')} />
-                                                        </p>
-
-                                                        <div class="clear"></div>
-
-                                                        <p class="form-row form-row form-row-wide address-field validate-required" id="email">
-                                                            <label for="email" class="">Email <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="email" class="input-text " name="email" id="email" placeholder="" autocomplete="email" value={this.state.email} onChange={this.handleChange('email')} />
-                                                        </p>
-
-                                                        <div class="clear"></div>
-
-                                                       
-                                                        <br></br><br></br>
-                                                        <p class="form-row form-row form-row-wide address-field validate-required" id="Password">
-                                                            <label for="Password" class="">Password <abbr class="required" title="required">*</abbr></label>
-                                                            <input type="Password" class="input-text " name="Password" id="Password" placeholder="" autocomplete="Password" value={this.state.password} onChange={this.handleChange('password')} />
-                                                        </p>
-
-                                                        <div class="clear"></div>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                        <label for="rememberme" class="inline">
-                                            <input name="rememberme" type="checkbox" id="rememberme" value="forever" />I Agree rules. </label><br></br>
-                                        <input type="submit" class="button" name="signup" value="Signup" onClick={this.createUsers.bind(this)} />
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                    </div>
-                                </div>
-
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" className="form-control form-control-lg" name="firstName" value={register.firstName} onChange={e => onInputChange(e)} />
                             </div>
                         </div>
-                    </section>
+
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Last Name</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    name="lastName"
+                                    value={register.lastName} onChange={e => onInputChange(e)}
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Username</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    name="username"
+                                    value={register.username} onChange={e => onInputChange(e)}
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    name="email"
+                                    value={register.email} onChange={e => onInputChange(e)}
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Country</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    name="country"
+                                    value={register.country} onChange={e => onInputChange(e)}
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Password</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    name="password"
+                                    value={register.password} onChange={e => onInputChange(e)}
+                                />
+                            </div>
+                        </div>
 
 
-                </div> */}
-
-            </>
+                    </form>
+                    <br></br>
+                    <br></br>
+                    <div class="container bg-light">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn btn-primary" style={{ width: "950px", height: "40px" }} onClick={Update}>Submit</button>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <div class="container bg-light">
+                        <div class="col-md-12 text-right">
+                        <button type="button" class="btn btn-danger" style={{ width: "200px", height: "40px" }} onClick={() => navigate(-1)} >Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
-    }
-}
+    };
 
-export default SignupUpdate;
+    export default SignUpdate;
+	
+	
+	

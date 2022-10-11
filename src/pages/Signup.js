@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useNavigate } from "react-router-dom";
 import { api } from '../utils';
+import { Link } from "react-router-dom";
 
 class Signup extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class Signup extends Component {
             email: '',
             password: '',
             username: '',
-            country: ''
+            country: '',
+            showAdmin: undefined
         }
     }
 
@@ -31,6 +33,10 @@ class Signup extends Component {
     async getAllUsers() {
         let responseJson = await api.getAllUsers();
         this.setState({ users: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
     }
 
     handleChange = input => event => {
@@ -65,12 +71,15 @@ class Signup extends Component {
     this.setState(this.initialState);
     }
 
-    nextComponent() {
-        this.props.navigate('/signup/:id');
-      }
+    deleteUser = async (user_id) => {
+
+        let responseJson = await api.deleteUser(user_id)
+
+        console.log(responseJson + "clicked");
+    }
 
     renderTablebody() {
-        const { users } = this.state;
+        const { users, showAdmin } = this.state;
         if (users && users.length > 0) {
             return (
                 <tbody style={{ color: "black" }}>
@@ -84,9 +93,13 @@ class Signup extends Component {
                                     <td>{datum.email}</td>
                                     <td>{datum.country}</td>
                                     <td>{datum.password}</td>
+                                    {showAdmin && (
                                     <td>
-                                    <button onClick={()=>this.nextComponent(datum.id)} style={{ backgroundColor: "green", color:"white" }}>Update</button> 
-                                    <button style={{ backgroundColor: "red",color:"white" }}>Delete</button></td>
+                                        <Link
+                                            class="btn btn-outline-primary mr-2" to={`/user/${datum.id}`}>
+                                                <button style={{ backgroundColor: "green", color: "white" }}>Update</button> 
+                                        </Link>                              
+                                         <button style={{ backgroundColor: "red",color:"white" }} onClick={()=>this.deleteUser(datum.id)}>Delete</button></td> )}
                                 </tr>
                             )
                         })
@@ -104,6 +117,7 @@ class Signup extends Component {
     }
 
     render() {
+        const {showAdmin} = this.state;
         return (
             <>
                 <div class="page-wrapper">
@@ -261,7 +275,10 @@ class Signup extends Component {
                                         </form>
                                         <label for="rememberme" class="inline">
                                             <input name="rememberme" type="checkbox" id="rememberme" value="forever" />I Agree rules. </label><br></br>
-                                        <input type="submit" class="button" name="signup" value="Signup" onClick={this.createUsers.bind(this)} />
+                                        <input type="submit" class="button" name="signup" value="Signup" onClick={this.createUsers.bind(this)} /> <Link
+                                        
+                                             to={"/"}> <button style={{ height:"48px", width:"100px"}}>Back</button> 
+                                        </Link>
                                         <br></br>
                                         <br></br>
                                         <br></br>
@@ -269,6 +286,8 @@ class Signup extends Component {
                                     </div>
                                 </div>
 
+
+                                {showAdmin&& (
                                 <table class="table" >
                                     <thead>
                                         <tr style={{ backgroundColor: "blue",color:"white" }}>
@@ -278,11 +297,13 @@ class Signup extends Component {
                                             <th scope="col">Email</th>
                                             <th scope="col">Country</th>
                                             <th scope="col">Password</th>
+                                           
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     {this.renderTablebody()}
                                 </table>
+                                 )}
 
                             </div>
                         </div>

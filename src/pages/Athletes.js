@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { api } from '../utils';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 class Athletes extends Component {
     constructor(props) {
@@ -14,7 +14,16 @@ class Athletes extends Component {
             fullname: '',
             country: '',
             totalMedals: '',
-            sport: ''
+            sport: '',
+            showAdmin: undefined
+        }
+
+        this.initialState = {
+            image: '',
+            fullname: '',
+            country: '',
+            totalMedals: '',
+            sport: '',
         }
     }
 
@@ -25,6 +34,10 @@ class Athletes extends Component {
     async getAllAthletes() {
         let responseJson = await api.getAllAthletes();
         this.setState({ athletes: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
     }
 
     handleChange = input => event => {
@@ -41,6 +54,13 @@ class Athletes extends Component {
         document.getElementById("file-id").files[1].name = image;
         alert(image);
        }
+
+       deleteAthletes = async (athlete_id) => {
+
+        let responseJson = await api.deleteAthletes(athlete_id)
+
+        console.log(responseJson + "clicked");
+    }
 
     async createAthletes() {
         const {
@@ -63,6 +83,7 @@ class Athletes extends Component {
             athletes: [...previousState.athletes, responseJson]
         }));
         window.close('#modalATHLETES');
+        this.setState(this.initialState);
 
     }
 
@@ -72,12 +93,8 @@ class Athletes extends Component {
     //    alert(spilts[1])
     //    }
 
-    nextComponent() {
-        this.props.navigate('/athlete/:id');
-      }
-
     renderTablebody() {
-        const { athletes } = this.state;
+        const { athletes, showAdmin } = this.state;
         if (athletes && athletes.length > 0) {
             return (
                 <tbody>
@@ -99,9 +116,13 @@ class Athletes extends Component {
                                         <div class="quantity"><a>{datum.sport}</a></div>
                                     </td>
                                     <td class="product-subtotal" data-title="Total"><a>{datum.totalMedals}</a> </td>
+                                    {showAdmin && (
                                     <td>
-                                    <button onClick={()=>this.nextComponent(datum.id)} style={{ backgroundColor: "green", color:"white" }}>Update</button> 
-                                    <button style={{ backgroundColor: "red",color:"white" }}>Delete</button></td>
+                                        <Link
+                                            class="btn btn-outline-primary mr-2" to={`/athlete/${datum.id}`}>
+                                                <button style={{ backgroundColor: "green", color: "white" }}>Update</button> 
+                                        </Link>
+                                    <button style={{ backgroundColor: "red",color:"white" }} onClick={()=>this.deleteAthletes(datum.id)} >Delete</button></td> )}
                                 </tr>
 
                                 // src="assets/images/athletes/japan1.png"
@@ -123,6 +144,7 @@ class Athletes extends Component {
 
 
     render() {
+        const { showAdmin} = this.state;
         return (
             <>
 
@@ -186,17 +208,19 @@ class Athletes extends Component {
                         <div class="container-1310">
                             <div class="row">
                                 <div class="col col-xs-12">
+                                {showAdmin && (
                                     <div class="text-left">
                                         <a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalATHLETES"
                                             style={{ backgroundColor: "red", color: "white" }}>ADD NEW ATHLETES</a>
                                     </div>
+                                )}
                                     <h2>ATHLETES</h2>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-
+                    
                     <section class="cart-section woocommerce-cart section-padding">
                         <div class="container-1310">
                             <div class="row">
@@ -212,7 +236,9 @@ class Athletes extends Component {
                                                         <th class="product-price">country</th>
                                                         <th class="product-quantity">sports</th>
                                                         <th class="product-subtotal">Total Medals</th>
+                                                        {showAdmin && (
                                                         <th class="product-quantity">Actions</th>
+                                                        )}
                                                     </tr>
                                                 </thead>
 
@@ -293,6 +319,7 @@ class Athletes extends Component {
                             </div>
                         </div>
                     </section>
+                  
 
                     <Footer />
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
 class Live extends Component {
@@ -21,8 +22,10 @@ class Live extends Component {
                             <div class="row">
                                 <div class="col col-xs-12">
                                     <div class="text-left">
-                                        <a href={"/live.html"} class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalATHLETES"
-                                            style={{ backgroundColor: "red", color: "white" }}>GO LIVE</a>
+									<Link
+                                            class="btn btn-outline-primary mr-2" to={"/live.html"}>
+                                                <button style={{ backgroundColor: "red", color: "white" }}>GO LIVE</button> 
+                                        </Link>
                                     </div>
                                     <h2>LIVE GAMES</h2>
                                 </div>

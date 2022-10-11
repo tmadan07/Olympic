@@ -129,8 +129,19 @@ export const getAllAthletes = async () => {
     return response;
   }
 
-  export const updateAthletes = async (athlete_id, data) => {
-    const response = await api.put('/api/v1/athletes/' + athlete_id, data)
+  // export const updateAthletes = async (athlete_id, data) => {
+  //   const response = await api.put('/api/v1/athletes/' + athlete_id, data)
+  //     .then(res => {
+  //       return res.data;
+  //     })
+  //     .catch(res => {
+  //       return []
+  //     })
+  //   return response;
+  // }
+
+  export const deleteAthletes = async (athlete_id) => {
+    const response = await api.delete('/api/v1/athlete/' + athlete_id)
       .then(res => {
         return res.data;
       })
@@ -140,9 +151,21 @@ export const getAllAthletes = async () => {
     return response;
   }
 
+
   
   export const deleteMedals = async (medal_id) => {
     const response = await api.delete('/api/v1/medal/' + medal_id)
+      .then(res => {
+        return res.data;
+      })
+      .catch(res => {
+        return []
+      })
+    return response;
+  }
+
+  export const deleteUser = async (user_id) => {
+    const response = await api.delete('/api/v1/register/' + user_id)
       .then(res => {
         return res.data;
       })

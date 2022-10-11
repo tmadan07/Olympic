@@ -24,7 +24,8 @@ class Medals extends Component {
             gold: '',
             silver: '',
             bronze: '',
-            total: ''
+            total: '',
+            showAdmin: undefined
         }
     }
 
@@ -34,7 +35,12 @@ class Medals extends Component {
 
     async getAllMedals() {
         let responseJson = await api.getAllMedals();
-        this.setState({ medals: responseJson })
+        this.setState({ medals: responseJson
+		 })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+}
     }
 
     handleChange = input => event => {
@@ -76,9 +82,17 @@ class Medals extends Component {
         this.setState(this.initialState);
     }
 
+    deleteMedals = async (medal_id) => {
+
+        let responseJson = await api.deleteMedals(medal_id)
+
+        console.log(responseJson + "clicked");
+    }
+
+
 
     renderTablebody() {
-        const { medals } = this.state;
+        const { medals, showAdmin } = this.state;
         if (medals && medals.length > 0) {
             return (
                 <tbody>
@@ -92,13 +106,14 @@ class Medals extends Component {
                                     <td>{datum.silver}</td>
                                     <td>{datum.bronze}</td>
                                     <td>{datum.total}</td>
+                                    {showAdmin &&(
                                     <td>
-                                        {/* <button onClick={()=>this.nextComponent(datum.id)}  style={{ backgroundColor: "green", color: "white" }}>Update</button> */}
                                         <Link
                                             class="btn btn-outline-primary mr-2" to={`/medal/${datum.id}`}>
                                                 <button style={{ backgroundColor: "green", color: "white" }}>Update</button> 
                                         </Link>
                                         <button style={{ backgroundColor: "red", color: "white" }} onClick={()=>this.deleteMedals(datum.id)}>Delete</button></td>
+                                    )}
                                 </tr>
                             )
                         })
@@ -116,6 +131,7 @@ class Medals extends Component {
     }
 
     render() {
+        const {showAdmin} = this.state;
         return (
 
             <div class="page-wrapper">
@@ -181,15 +197,19 @@ class Medals extends Component {
                     <div class="container-1310">
                         <div class="row">
                             <div class="col col-xs-12">
+                            {showAdmin && (				
                                 <div class="text-left">
                                     <a href="" class="btn btn-default btn-rounded mb-6" data-toggle="modal" data-target="#modalMedals"
                                         style={{ backgroundColor: "red", color: "white" }}>ADD MEDALS</a>
                                 </div>
+                                )}
                                 <h2>Total Medals</h2>
                             </div>
                         </div>
                     </div>
                 </section>
+
+                
 
                 <section class="checkout-section section-padding">
                     <div class="container-1310">
@@ -203,7 +223,8 @@ class Medals extends Component {
                                         <th scope="col"><img src="assets/images/medals/silver.png" style={{ width: "30px" }} /></th>
                                         <th scope="col"><img src="assets/images/medals/bronze.png" style={{ width: "30px" }} /></th>
                                         <th scope="col">Total Medals</th>
-                                        <th scope="col">Actions</th>
+                                        {showAdmin &&(
+                                        <th scope="col">Actions</th> )}
                                     </tr>
                                 </thead>
                                 {this.renderTablebody()}
@@ -212,6 +233,7 @@ class Medals extends Component {
                         </div>
                     </div>
                 </section>
+                
 
                 <Footer />
             </div>
