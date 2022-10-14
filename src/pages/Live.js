@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
+import { api } from '../utils';
 
 class Live extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			showAdmin: undefined,
+		}
 	}
 
+	componentDidMount() {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        let responseJson = await api.getAllUsers();
+        this.setState({ users: responseJson })
+        if (responseJson = window.localStorage.getItem("roles").match("ROLE_ADMIN")) {
+			this.setState({  showAdmin: "ROLE_ADMIN"
+		 })
+        }
+    }
+
 	render() {
+		const {showAdmin} = this.state;
 		return (
 			<>
 				<div class="page-wrapper">
@@ -20,12 +38,14 @@ class Live extends Component {
                         <div class="container-1310">
                             <div class="row">
                                 <div class="col col-xs-12">
+								{showAdmin&&(
                                     <div class="text-left">
 									<Link
                                             class="btn btn-outline-primary mr-2" to={"/golive"}>
                                                 <button style={{ backgroundColor: "red", color: "white" }}>GO LIVE</button> 
                                         </Link>
                                     </div>
+								)}
                                     <h2>LIVE GAMES</h2>
                                 </div>
                             </div>

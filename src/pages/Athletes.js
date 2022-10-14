@@ -236,16 +236,16 @@ class Athletes extends Component {
                                                         <th class="product-price">country</th>
                                                         <th class="product-quantity">sports</th>
                                                         <th class="product-subtotal">Total Medals</th>
-                                                        {showAdmin && (
+                                                        {/* {showAdmin && (
                                                         <th class="product-quantity">Actions</th>
-                                                        )}
+                                                        )} */}
                                                     </tr>
                                                 </thead>
 
-                                                {this.renderTablebody()}
-                                                {/* <tbody>
+                                                {/* {this.renderTablebody()} */}
+                                               
+                                                <tbody>
                                                     
-
                                                     <tr class="cart_item">
                                                         <td class="product-remove"> <a>1</a> </td>
                                                         <td class="product-thumbnail">
@@ -310,7 +310,8 @@ class Athletes extends Component {
                                                         <td class="product-subtotal" data-title="Total"><a>3</a> </td>
                                                     </tr>
 
-                                                </tbody> */}
+                                                </tbody>
+                                                 
                                             </table>
                                         </form>
 

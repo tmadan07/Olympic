@@ -23,7 +23,8 @@ class Signup extends Component {
             username: '',
             country: '',
             roles:'',
-            showAdmin: undefined
+            showAdmin: undefined,
+            showLogged: true,
         }
     }
 
@@ -38,6 +39,10 @@ class Signup extends Component {
 			this.setState({  showAdmin: "ROLE_ADMIN"
 		 })
         }
+        if (responseJson = window.localStorage.getItem("isLoggedIn")) {
+			this.setState({ showLogged: false
+				 })
+		}
     }
 
     handleChange = input => event => {
@@ -78,7 +83,6 @@ class Signup extends Component {
 
     deleteUser = async (user_id, event) => {
        
-
         let responseJson = await api.deleteUser(user_id)
         event.preventDefault();
         console.log(responseJson + "clicked");
@@ -123,7 +127,7 @@ class Signup extends Component {
     }
 
     render() {
-        const {showAdmin} = this.state;
+        const {showAdmin, showLogged} = this.state;
         return (
             <>
                 <div class="page-wrapper">
@@ -131,9 +135,23 @@ class Signup extends Component {
                     <br></br>
                     <br></br>
 
+                    {showAdmin&&(
+
+                    <section class="page-title">
+                        <div class="container-1310">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h2>User Details</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    )}
+
                     <section class="checkout-section section-padding">
                         <div class="container-1310">
                             <div class="row">
+                                {showLogged&&(
                                 <div class="col col-xs-12">
                                     <div class="woocommerce">
                                         <h2>Sign Up</h2>
@@ -291,6 +309,7 @@ class Signup extends Component {
                                         <br></br>
                                     </div>
                                 </div>
+                                )}
 
 
                                 {showAdmin&& (

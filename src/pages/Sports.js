@@ -228,15 +228,6 @@ class Sports extends Component {
                                 <div class="col col-lg-3">
                                     <div class="blog-sidebar">
                                         <div class="widget about-widget">
-                                            <h2 style={{ color: "red" }}>G</h2>
-                                            <p>Golf</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col col-lg-3">
-                                    <div class="blog-sidebar">
-                                        <div class="widget about-widget">
                                             <h2 style={{ color: "red" }}>H</h2>
                                             <p>Handball</p>
                                             <p>Hockey</p>
@@ -253,23 +244,7 @@ class Sports extends Component {
                                     </div>
                                 </div>
 
-                                <div class="col col-lg-3">
-                                    <div class="blog-sidebar">
-                                        <div class="widget about-widget">
-                                            <h2 style={{ color: "red" }}>J</h2>
-                                            <p>Judo</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col col-lg-3">
-                                    <div class="blog-sidebar">
-                                        <div class="widget about-widget">
-                                            <h2 style={{ color: "red" }}>K</h2>
-                                            <p>Karate</p>
-                                        </div>
-                                    </div>
-                                </div>
+                              
 
                                 <div class="col col-lg-3">
                                     <div class="blog-sidebar">

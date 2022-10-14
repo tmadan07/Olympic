@@ -121,7 +121,7 @@ class Events extends Component {
                                             </div>
                                             <div class="entry-details">
                                                 <div class="author">Beijing National Stadium</div>
-                                                <h4><a href="news2"></a>Cricket | India vs Nepal</h4>
+                                                <h4><a href="news2"></a>Golf | Master Championship</h4>
                                                 <ul>
                                                     <li><a href="news2" style={{color:"blue"}}>Live on 10 Dec 2022</a></li>
                                                 </ul>
